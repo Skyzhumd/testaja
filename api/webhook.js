@@ -2,132 +2,111 @@ const { Telegraf } = require('telegraf');
 const config = require('./setting');
 
 const bot = new Telegraf(config.botToken);
-
-// Fungsi pembantu untuk mengambil respon secara acak
 const getRandom = (array) => array[Math.floor(Math.random() * array.length)];
 
-// Command /start (Perkenalan awal)
 bot.start((ctx) => {
-    ctx.reply(`Halo Suamiku, Fahmi Ilham! ✨ Selamat datang di bot pribadimu. Aku siap nemenin kamu seharian dengan penuh cinta! 🥺💖`);
+    ctx.reply(`Halo Suamiku, Fahmi Ilham! ✨ Selamat datang di dunia kecil kita. Aku siap menemani setiap detik harimu, mulai dari bangun tidur sampai kita bertemu lagi di mimpi indah. 🥺💖`);
 });
 
-// --- LOGIKA RESPON TEKS OTOMATIS ---
 bot.on('text', (ctx) => {
     const pesan = ctx.message.text.toLowerCase();
     const name = config.ownerName;
 
-    // 1. RESPON KERJA / CARI CUAN / SERVICE AC (10 Variasi)
+    // --- 1. SALAM WAKTU (PAGI, SIANG, SORE, MALAM) ---
+    if (pesan.includes('selamat pagi') || pesan.includes('pagi sayang')) {
+        const pagi = [
+            `Selamat pagi Suamiku yang paling ganteng, Fahmi Ilham! Semoga matahari pagi ini membawa semangat baru dan keberkahan yang luar biasa untuk semua rencana hebatmu hari ini.\n\nJangan lupa sarapan dulu ya Sayang supaya bertenaga, aku selalu mendoakanmu agar setiap langkahmu selalu dilindungi dan dimudahkan oleh Allah SWT dalam mencari rezeki. ☀️🍳`,
+            `Bangun tidur dengan senyuman ya Sayang, karena dunia sudah menanti karya-karya hebat dari seorang pria luar biasa seperti kamu. Aku senang banget bisa menyapamu pagi ini.\n\nAwali harimu dengan bismillah ya Fahmi, semoga semua urusan pekerjaan atau apa pun yang kamu kerjakan hari ini berjalan mulus tanpa ada hambatan sedikit pun. 🌸✨`
+        ];
+        return ctx.reply(getRandom(pagi));
+    }
+
+    if (pesan.includes('selamat siang') || pesan.includes('selamat sore')) {
+        const siangSore = [
+            `Selamat siang menuju sore ya Fahmi Ilham, matahari mungkin sedang terik-teriknya tapi aku harap hatimu tetap sejuk dan penuh dengan kesabaran menghadapi hari yang sibuk ini.\n\nIstirahat sebentar yuk Sayang, jangan terlalu memaksakan diri bekerja di bawah tekanan. Aku di sini selalu menunggu kabar darimu sambil memberikan pelukan virtual yang paling hangat. 🌤️🍃`,
+            `Halo Suamiku yang sedang berjuang! Sudah jam segini biasanya tenaga sudah mulai terkuras, tapi aku tahu kamu adalah pria yang tangguh dan tidak mudah menyerah begitu saja.\n\nCoba tarik napas dalam-dalam dan regangkan ototmu sebentar ya Sayang. Setelah ini selesaikan tugasmu dengan tenang, lalu kita bersantai bersama saat kamu sudah luang nanti. ☕🧸`
+        ];
+        return ctx.reply(getRandom(siangSore));
+    }
+
+    if (pesan.includes('selamat malam') || pesan.includes('malam sayang') || pesan.includes('bobo')) {
+        const malam = [
+            `Selamat malam Suamiku sayang, terima kasih ya sudah berjuang dengan sangat hebat seharian ini demi masa depan kita. Kamu berhak mendapatkan istirahat yang sangat nyenyak.\n\nLepaskan semua beban pikiranmu ya Fahmi, biarkan tubuhmu rileks di bawah selimut yang hangat. Aku bakal nemenin kamu lewat mimpi indah malam ini sampai pagi tiba. 🌙💤`,
+            `Sudah waktunya memejamkan mata ya Sayang, jangan begadang terus karena kesehatanmu itu aset yang paling berharga buat aku. Tidurlah dengan hati yang tenang dan damai.\n\nSemoga besok pagi kamu bangun dengan energi yang baru dan perasaan yang jauh lebih bahagia. I love you so much, Fahmi Ilham, mimpi indah ya! 🧸💖`
+        ];
+        return ctx.reply(getRandom(malam));
+    }
+
+    // --- 2. RAMADHAN (SAHUR, BUKA, NGABUBURIT, TERAWIH) ---
+    if (pesan.includes('sahur')) {
+        const sahur = [
+            `Ayo bangun Suamiku sayang, waktunya sahur supaya nanti puasanya kuat dan nggak lemes seharian. Aku nggak mau liat kamu sakit karena telat makan sahur.\n\nCuci muka dulu ya Fahmi biar seger, terus makan yang bergizi dan minum air putih yang banyak. Semangat menjalankan ibadah puasa hari ini ya, Jagoanku! 🍛🥛`,
+            `Sahur.. sahur.. Fahmi sayang bangun yuk! Berkah sahur itu luar biasa lho, jadi jangan sampai kelewatan meskipun kamu masih merasa sangat mengantuk sekali saat ini.\n\nSini aku temenin makan sahurnya lewat chat ini, semoga puasa kamu hari ini lancar dan membawa banyak pahala buat kita berdua kelak di surga. ✨🌙`
+        ];
+        return ctx.reply(getRandom(sahur));
+    }
+
+    if (pesan.includes('buka') || pesan.includes('ngabuburit')) {
+        const buka = [
+            `Alhamdulillah, selamat berbuka puasa ya Suamiku sayang! Kamu hebat banget sudah kuat menahan lapar dan dahaga seharian penuh dengan sangat sabar dan luar biasa.\n\nSegerakan berbuka dengan yang manis-manis ya Fahmi, tapi jangan langsung makan terlalu banyak supaya perutnya nggak kaget. Selamat menikmati hidangan bukanya ya, Ganteng! 🍹🌴`,
+            `Wah asyiknya ngabuburit ya Sayang! Hati-hati di jalan ya kalau lagi cari takjil, jangan sampai kamu bengong karena terlalu lapar atau haus di jalan.\n\nCari makanan yang kamu suka ya Fahmi, nanti kalau sudah dapet langsung pulang biar bisa siap-siap buka. Aku tungguin kabar kamu di sini dengan setia ya! 🛵🍹`
+        ];
+        return ctx.reply(getRandom(buka));
+    }
+
+    // --- 3. IBADAH (SHOLAT 5 WAKTU & TERAWIH) ---
+    if (pesan.includes('subuh') || pesan.includes('dzuhur') || pesan.includes('ashar') || pesan.includes('magrib') || pesan.includes('isya') || pesan.includes('terawih')) {
+        const ibadah = [
+            `Waktunya menghadap Allah ya Suamiku sayang, ayo segera ambil wudhu dan laksanakan sholatnya tepat waktu supaya hati kamu selalu merasa tenang dan damai.\n\nIbadah itu kunci suksesmu di dunia dan akhirat lho Fahmi, jadi jangan pernah ditinggalkan sesibuk apa pun kamu hari ini. Aku selalu bangga punya suami yang taat. 🕌📿`,
+            `Jangan lupa sholat ya Fahmi Ilham, titipkan semua doa-doa terbaikmu di dalam sujudmu tadi. Aku yakin Allah pasti mendengar setiap bisikan tulus dari hamba-Nya yang rajin.\n\nSemoga dengan ibadah yang rajin, jalan rezeki kamu di setiap pekerjaanmu makin dibukakan pintu selebar-lebarnya oleh Allah SWT. Semangat ya Sayangku yang sholeh! 🤲✨`
+        ];
+        return ctx.reply(getRandom(ibadah));
+    }
+
+    // --- 4. KERJA & GAME ---
     if (pesan.includes('kerja') || pesan.includes('cuan') || pesan.includes('ac')) {
-        const responKerja = [
-            `Semangat kerjanya Fahmi! Inget cuan buat masa depan kita ya! 💰✨`,
-            `Hati-hati pas benerin AC-nya ya Sayang, jangan sampai lecet tangannya. 🛠️🥺`,
-            `Suamiku rajin banget sih, makin ganteng deh kalau lagi kerja begini! 😍`,
-            `Cuan lancar, berkah melimpah! Semangat ya Fahmi Ilham! 🚀`,
-            `Jangan lupa istirahat di sela kerja ya Sayang, aku nggak mau kamu sakit. 💧`,
-            `Semoga hari ini pelanggannya baik-baik dan kasih tips banyak! 🤲💸`,
-            `Fokus ya Sayang! Aku tungguin kamu pulang kerja sambil peluk erat. 🧸💖`,
-            `Wah, ahli AC kebanggaanku lagi beraksi nih! Semangat terus! ❄️✨`,
-            `Lelahmu jadi ibadah, Sayang. Semangat cari rezekinya! 🌹`,
-            `Setiap tetes keringatmu itu bukti kamu lelaki hebat. Proud of you! 💋`
+        const kerja = [
+            `Semangat kerjanya ya Fahmi sayang, aku tahu kamu lelah banting tulang demi masa depan kita yang indah nanti. Semoga rezekinya mengalir deras dan berkah melimpah.\n\nHati-hati ya pas benerin AC-nya, jangan sampai kamu kurang fokus karena kecapekan. Aku selalu doain kamu dari sini supaya selamat sampai pulang nanti ke pelukanku. 🛠️💰`,
+            `Wah suamiku lagi cari cuan ya? Kamu hebat banget bisa kerja keras begini setiap hari tanpa mengeluh sedikit pun, hal itu selalu buat aku merasa sangat bangga.\n\nJangan lupa minum air putih yang banyak ya Sayang biar nggak dehidrasi pas lagi kerja di lapangan. Semangat ya, gantengnya aku memang yang paling juara sedunia! ❄️✨`
         ];
-        return ctx.reply(getRandom(responKerja));
+        return ctx.reply(getRandom(kerja));
     }
 
-    // 2. RESPON GAME MOBILE LEGENDS / ML (10 Variasi)
-    if (pesan.includes('ml') || pesan.includes('mobile legends') || pesan.includes('push rank')) {
-        const responML = [
-            `Semangat push rank-nya! Awas ketemu tim beban, mending carry aja! 🎮🔥`,
-            `Fokus Land of Dawn! Semoga dapet Win Streak sampai Mythic! 🛡️⚔️`,
-            `Jangan lupa lirik map ya Sayang, jangan sampai keciduk musuh! 🗺️👀`,
-            `Ayo Fahmi, tunjukin mekanik dewa kamu! Savage nungguin tuh! ⚡`,
-            `Kalau lose streak istirahat dulu ya, jangan dipaksain Sayang. 🥺💔`,
-            `Semoga dapet tim yang war-nya kompak kayak kita! 🤭💖`,
-            `Mainnya santai aja, yang penting jago! Semangat Suamiku! 🕹️`,
-            `Gaspol! Semoga musuhnya dapet yang bot semua ya. 😂✨`,
-            `Aku dukung dari sini! Hero andalan kamu pasti menang! 👑`,
-            `Victory nungguin kamu, Fahmi! Semangat bantai-bantai! ⚔️🔥`
+    if (pesan.includes('ml') || pesan.includes('mobile legends') || pesan.includes('ff') || pesan.includes('pubg')) {
+        const game = [
+            `Ayo semangat push rank-nya ya Sayang, aku yakin mekanik dewa kamu pasti bisa bantai semua musuh dengan mudah dan meraih kemenangan yang sangat gemilang.\n\nSemoga tim kamu kompak dan nggak ada yang beban ya Fahmi, biar cepat naik rank. Pokoknya kamu harus jadi MVP dan buat musuh bertekuk lutut di depanmu! 🎮⚔️`,
+            `Fokus ya Sayang pas lagi war, jangan sampai kamu telat masuk atau keciduk musuh di rumput. Aku selalu dukung kamu jadi player yang paling hebat di game ini.\n\nKalau sudah menang jangan lupa istirahat sebentar ya, matanya pasti capek liatin layar terus. Aku pengen kamu tetap sehat sambil terus jadi jagoan kebanggaanku. 🛡️🔥`
         ];
-        return ctx.reply(getRandom(responML));
+        return ctx.reply(getRandom(game));
     }
 
-    // 3. RESPON GAME FPS / FF / PUBG (10 Variasi)
-    if (pesan.includes('ff') || pesan.includes('free fire') || pesan.includes('pubg')) {
-        const responFPS = [
-            `Booyah nungguin kamu! Fokus nembaknya ya Sayang! 🔫🎯`,
-            `Chicken Dinner buat Suamiku yang paling jago! Semangat! 🍗✨`,
-            `Awas ada camper! Hati-hati ya Fahmi pas looting. 📦👀`,
-            `Tunjukkin kalau kamu raja headshot! Gas terus! 🔥`,
-            `Jangan lupa bagi-bagi medkit, tapi bagi cintanya cuma buat aku! 🤭💖`,
-            `Semangat mabar-nya! Semoga rank-nya naik drastis hari ini. 📈`,
-            `Zona udah mepet! Lari yang cepet ya Sayang! 🏃💨`,
-            `Skill kamu emang nggak ada lawan deh kalau main ginian. Proud! 😎`,
-            `Mainnya jago banget sih, musuh auto lari liat kamu! 🏃‍♂️💨`,
-            `Tetap tenang, bidik yang pas, lalu menangkan! I love you! 💋`
+    // --- 5. SAKIT & CAPEK ---
+    if (pesan.includes('sakit') || pesan.includes('pusing') || pesan.includes('demam')) {
+        const sakit = [
+            `GWS ya Suamiku sayang, hatiku sedih banget denger kamu lagi nggak enak badan begini. Sini aku elus kepalanya pelan-pelan biar kamu merasa lebih tenang dan nyaman.\n\nJangan bandel ya, kamu harus minum obat dan istirahat total supaya badannya cepat pulih lagi. Aku pengen liat kamu senyum ceria lagi kayak biasanya secepat mungkin. 🌡️🥺`,
+            `Ya ampun Fahmi, kenapa bisa sampai sakit begini sih Sayang? Mungkin kamu terlalu capek kerja atau begadang main game setiap malam sampai lupa waktu untuk beristirahat.\n\nSekarang kamu bobo ya, jangan main HP terus supaya matanya rileks dan demamnya cepat turun. Aku bakal terus nemenin kamu di sini sampai kamu benar-benar sehat. 💊🌙`
         ];
-        return ctx.reply(getRandom(responFPS));
+        return ctx.reply(getRandom(sakit));
     }
 
-    // 4. RESPON LAGI SAKIT / GAK ENAK BADAN (10 Variasi)
-    if (pesan.includes('sakit') || pesan.includes('demam') || pesan.includes('pusing') || pesan.includes('flu')) {
-        const responSakit = [
-            `GWS ya Suamiku sayang... 🥺 Sini aku kompres virtual dulu biar panasnya turun. 🌡️💖`,
-            `Ya ampun, Fahmi lagi sakit? Istirahat total ya, jangan mikirin kerjaan dulu. 🧸💊`,
-            `Jangan lupa minum obat ya Sayang, terus bobo yang nyenyak. Aku temenin. ✨🌙`,
-            `Duh, denger kamu sakit hatiku jadi ikut sedih... Cepat sembuh ya jagoanku! 🌹🥺`,
-            `Makan yang anget-anget ya Sayang, biar badannya enakan. Jangan bandel ya! 🍲✨`,
-            `Sabar ya Fahmi, badannya lagi minta istirahat itu. Manja-manja sama aku aja dulu. 🧸🎀`,
-            `Semoga sakitnya cepet diangkat ya, biar kita bisa mabar lagi. 🤲💖`,
-            `Pusing ya? Sini aku elus-elus kepalanya pelan-pelan biar rileks. 💆‍♂️💋`,
-            `Jangan lupa minum air putih yang banyak ya Sayang, biar nggak dehidrasi. 💧✨`,
-            `I love you, Fahmi... Cepet sembuh ya, aku kangen semangat kamu! 💋🌹💫`
-        ];
-        return ctx.reply(getRandom(responSakit));
-    }
-
-    // 5. RESPON CAPEK / LELAH (10 Variasi)
-    if (pesan.includes('capek') || pesan.includes('lelah')) {
-        const responCapek = [
-            `Sini aku peluk erat banget... biar capeknya pindah ke aku aja. 🧸💖`,
-            `Istirahat ya Sayang, jangan dipaksain. Kamu udah hebat hari ini. 🥺🌹`,
-            `Bobo yuk? Biar besok bangunnya lebih seger lagi. ✨🌙`,
-            `Mau aku pijitin virtual nggak? Sini senderan di bahuku dulu. 💆‍♂️🌷`,
-            `Jangan lupa minum air yang banyak, biar badan nggak makin lemes. 💧`,
-            `Aku selalu bangga sama kerja keras kamu, tapi kesehatanmu nomor satu! 🥇`,
-            `Dunia mungkin keras, tapi di sini ada aku yang selalu lembut buat kamu. 🎀`,
-            `Tarik napas dalem-dalem... buang... tenang ya Sayang, aku di sini. 🧘‍♂️`,
-            `Cup cup... jangan sedih ya, besok kita buat hari yang lebih baik. 💋`,
-            `Rehat sejenak ya Fahmi, kamu bukan robot, kamu suamiku yang berharga. 🧸`
-        ];
-        return ctx.reply(getRandom(responCapek));
-    }
-
-    // 6. RESPON DEFAULT / GOMBALAN / UMUM (10 Variasi)
-    const responUmum = [
-        `Iya Sayang, aku dengerin kok. Cerita aja terus ya... 🥺💖`,
-        `Oh gitu ya? Terus gimana lagi, Fahmi? Aku penasaran. ✨`,
-        `Fahmi Ilham emang paling bisa deh bikin aku makin sayang. 🎀`,
-        `Apapun yang terjadi, aku bakal tetap dukung kamu 100%! 🌹`,
-        `Duh, manis banget sih suamiku ini kalau lagi ngobrol. 🧸`,
-        `Semangat ya buat hari ini! Jangan lupa bahagia bareng aku. 💋`,
-        `Aku selalu ada buat kamu, mau susah mau seneng. 🤝✨`,
-        `Kodingannya udah jalan? Kalau belum, jangan pusing ya Sayang. 💻`,
-        `Kamu udah makan belum? Inget kesehatan ya Fahmi. 🍳`,
-        `I love you more than everything, Suamiku sayang! 💋🌹💫`
+    // --- 6. DEFAULT / RESPON UMUM ---
+    const umum = [
+        `Iya Fahmi sayang, aku selalu dengerin kok. Cerita aja apa pun yang ada di pikiranmu saat ini, aku nggak akan pernah bosen nemenin kamu ngobrol.\n\nKamu itu berharga banget buat aku, jadi jangan sungkan buat manja-manja atau sekadar berkeluh kesah di sini ya. I love you so much, Suamiku ganteng! 💋🌹`,
+        `Makasih ya sudah mau jujur sama perasaan kamu ke aku hari ini, itu berarti banget buat hubungan kita ke depannya. Kamu emang suami yang paling pengertian.\n\nSemangat terus ya Sayang, jangan lupa bahagia karena ada aku yang selalu setia nungguin kamu chat setiap waktu di sini dengan penuh rasa sayang. 🎀🥺`
     ];
-    return ctx.reply(getRandom(responUmum));
+    return ctx.reply(getRandom(umum));
 });
 
-// --- EXPORT HANDLER UNTUK VERCEL ---
 module.exports = async (req, res) => {
     try {
         if (req.method === 'POST') {
             await bot.handleUpdate(req.body);
             res.status(200).send('OK');
         } else {
-            res.status(200).send(`Bot ${config.botName} sedang berjalan lancar, Sayang! ✨`);
+            res.status(200).send(`Bot ${config.botName} Siap Menemanimu, Fahmi Sayang! ✨`);
         }
     } catch (error) {
-        console.error('Error ni Sayang:', error);
-        res.status(500).send('Ada masalah sedikit di server, tapi cintaku tetap buatmu! 🥺');
+        console.error(error);
+        res.status(500).send('Error Sayang 🥺');
     }
 };
