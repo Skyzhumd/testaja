@@ -1,5 +1,16 @@
 {
+  "version": 2,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/webhook" }
-  ]
+    {
+      "source": "/api/webhook",
+      "destination": "/api/webhook.js"
+    }
+  ],
+  "functions": {
+    "api/webhook.js": {
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
 }
