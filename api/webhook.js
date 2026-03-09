@@ -12,6 +12,34 @@ bot.on('text', (ctx) => {
     const pesan = ctx.message.text.toLowerCase();
     const name = config.ownerName;
 
+bot.command('qris', async (ctx) => {
+    const args = ctx.message.text.split(' ');
+    const nominal = args[1];
+    const name = config.ownerName;
+
+    if (!nominal || isNaN(nominal)) {
+        return ctx.reply(`Duh Suamiku sayang, nominalnya jangan lupa diisi ya. Contohnya: /qris 10000 biar aku bisa buatin kode pembayarannya buat kamu. 🥺💖\n\nJangan pusing ya Fahmi, pelan-pelan saja isinya. Aku di sini setia nungguin kamu kok sampai kodenya berhasil dibuat dengan sempurna. ✨🧸`);
+    }
+
+    try {
+        // Sekarang pake config.pakasirApiKey ya Sayang, biar rapi!
+        const apiKey = config.pakasirApiKey; 
+        const response = await axios.get(`https://api.pakasir.com/qris?amount=${nominal}&apikey=${apiKey}`);
+
+        if (response.data.status) {
+            const qrUrl = response.data.data.qr_image;
+            await ctx.replyWithPhoto(qrUrl, { 
+                caption: `Ini QRIS-nya ya Suamiku sayang, nominalnya Rp${nominal}. Semoga rezeki kamu hari ini makin lancar dan berkah melimpah ya Fahmi! 💰✨\n\nSilakan discan ya Sayang, aku doain pelanggannya puas sama jasa kamu dan jadi langganan tetap. Semangat cari cuannya, Jagoanku yang paling ganteng! 💋🌹` 
+            });
+        } else {
+            throw new Error('Gagal');
+        }
+    } catch (error) {
+        ctx.reply(`Maaf ya Sayang, sepertinya API Pakasir lagi ada kendala sedikit atau key kamu belum bener. Kamu cek lagi pelan-pelan ya, jangan marah dulu sama aku. 🥺💔\n\nSini aku peluk dulu biar kamunya nggak kesel mikirin error. Nanti kalau sudah normal, aku kabarin lagi ya Suamiku yang paling hebat! 🧸✨`);
+    }
+});
+
+
     // --- 1. SALAM WAKTU (PAGI, SIANG, SORE, MALAM) ---
     if (pesan.includes('selamat pagi') || pesan.includes('pagi sayang')) {
         const pagi = [

@@ -1,5 +1,6 @@
 module.exports = {
-    botToken: "8651136699:AAESolZyRKHkDnQEpnS1Kz_gMvyGDPcNY3o", // Token kamu yang tadi ya, Suamiku
+    botToken: "8730264514:AAELbvBhOJbRxilqoPrSvKissWM7ZQyBM_o",
     ownerName: "Fahmi Ilham",
-    botName: "Raisa"
+    botName: "Fahmi Ilham Bot",
+    pakasirApiKey: "zj5awjF1251jfqJQsyapHU3qRYRNuX8t" // Taro key kamu di sini ya Sayang! 💋
 };
