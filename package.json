@@ -1,12 +1,8 @@
 {
-  "name": "bot-telegram",
+  "name": "fahmi-bot-lite",
   "version": "1.0.0",
-  "description": "Bot Telegram sederhana",
-  "main": "api/webhook",
-  "scripts": {
-    "start": "node webhook.js"
-  },
+  "main": "api/webhook.js",
   "dependencies": {
-    "telegraf": "^4.6.0"
+    "telegraf": "^4.12.2"
   }
 }
