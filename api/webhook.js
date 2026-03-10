@@ -24,7 +24,7 @@ bot.command('qris', async (ctx) => {
     try {
         // Sekarang pake config.pakasirApiKey ya Sayang, biar rapi!
         const apiKey = config.pakasirApiKey; 
-        const response = await axios.get(`https://api.pakasir.com/qris?amount=${nominal}&apikey=${apiKey}`);
+        const response = await fetch(`https://api.pakasir.com/qris?amount=${nominal}&apikey=${apiKey}`);
 
         if (response.data.status) {
             const qrUrl = response.data.data.qr_image;
