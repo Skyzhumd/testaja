@@ -5,10 +5,5 @@
       "source": "/api/webhook",
       "destination": "/api/webhook.js"
     }
-  ],
-  "functions": {
-    "api/webhook.js": {
-      "runtime": "nodejs20.x"
-    }
-  }
+  ]
 }
