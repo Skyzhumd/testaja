@@ -1,8 +1,0 @@
-{
-  "name": "fahmi-bot-lite",
-  "version": "1.0.0",
-  "main": "api/webhook.js",
-  "dependencies": {
-    "telegraf": "^4.12.2"
-  }
-}
